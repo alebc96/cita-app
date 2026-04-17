@@ -1,0 +1,160 @@
+/* --- RESET Y BASE (Tus estilos originales) --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background-color: #e5e5f7;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh; // Cambiado a min-height para que no se corte en móviles
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background:
+    radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent),
+    radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent) 32.5px 32.5px,
+    linear-gradient(#c8a5d3 2.6px, transparent 2.6px) 0 -1.3px,
+    linear-gradient(90deg, #c8a5d3 2.6px, #e5e5f7 2.6px) -1.3px 0;
+  background-size: 65px 65px, 65px 65px, 32.5px 32.5px, 32.5px 32.5px;
+}
+
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; // Espacio de seguridad para los bordes del móvil
+}
+
+/* --- TU CONTENEDOR PRINCIPAL CON EL FIX RESPONSIVE --- */
+.general-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 450px; // Mantiene el tamaño que querías en PC
+
+    // --- SECCIÓN DE IMAGEN (Fix para que no se deforme) ---
+    .image-container {
+      width: 100%; 
+      aspect-ratio: 1 / 1; // Mantiene el contenedor siempre cuadrado
+      border-radius: 30px;
+      overflow: hidden;
+      background-color: white; // Fondo base por si el GIF tiene transparencia
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; // CLAVE: La imagen llena el cuadrado sin estirarse
+        display: block;
+        border-radius: 30px;
+      }
+    }
+
+    .text-container {
+      font-size: clamp(18px, 5vw, 22px); // Texto fluido según el ancho
+      color: #7f3596;
+      margin: 15px 0;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .choices-container {
+      background-color: #eecdf7;
+      padding: clamp(15px, 5%, 25px); // Padding que se ajusta en móviles
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+
+      .btns-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        position: relative; // Importante para el botón que huye
+
+        .btn {
+          width: 45%; // Los botones se adaptan al ancho
+          max-width: 165px;
+          border: none;
+          border-radius: 25px;
+          height: 48px; 
+          cursor: pointer;
+          font-size: 18px;
+          font-weight: bold;
+          background-color: #d179ec;
+          color: white;
+
+          /* --- TUS EFECTOS ORIGINALES --- */
+          transition:
+            transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+            background-color 0.3s,
+            top 0.1s ease, left 0.1s ease; // Para que el salto del "No" sea fluido
+
+          &:hover {
+            transform: scale(1.1);
+            background-color: #bf5cdb;
+            box-shadow: 0 5px 15px rgba(209, 121, 236, 0.4);
+          }
+
+          &:active {
+            transform: scale(0.95);
+          }
+
+          /* --- BOTÓN SÍ --- */
+          &#btn-yes {
+            background-color: #ff4d6d;
+            &:hover {
+              box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            }
+          }
+
+          /* --- BOTÓN NO (Corrección de visibilidad) --- */
+          &.btn-no {
+            z-index: 10;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* --- MEDIA QUERY PARA MÓVILES MUY PEQUEÑOS --- */
+@media (max-width: 380px) {
+  .general-container .container {
+    .choices-container {
+      .btns-container {
+        gap: 10px;
+        .btn {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
